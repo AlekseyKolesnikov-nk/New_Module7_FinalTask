@@ -37,6 +37,7 @@ class Programm
 
         public void ViewWire()                                                          // Вывод данных по проволоке на складе
         {
+            Console.WriteLine("Запасы металлопродукции на складе:\n");
             foreach (Wire wire in wires)
             {
                 Console.WriteLine("Проволока, диаметр (мм): " + wire.diameter + ", марка стали: " + wire.grade + ", количество (т): " + wire.quantity + ", цена (руб/т): " + wire.price);
@@ -70,52 +71,66 @@ class Programm
 
         private void Cost()                                                                 // Приватный класс - расчет стоимости металла на складе
         {
-            double w = 0;
-            double c = 0;
-            double m = 0;
+            double cost = 0;
 
             foreach (Wire wire in wires)
             {
-                w = w + wire.price * wire.quantity;
+                cost = cost + wire.price * wire.quantity;
             }
 
             foreach (Corner corner in corners)
             {
-                w = w + corner.price * corner.quantity;
+                cost = cost + corner.price * corner.quantity;
             }
 
-            m = w + c;
-            Console.WriteLine("Стоимость металлопродукции на складе: " + m +" рублей.");
+            Console.WriteLine("Приватная информация для " + "mailaddress");
+            Console.WriteLine("Стоимость металлопродукции на складе: " + cost + " рублей.");
+        }
+    }
+    class Address
+    {
+        public string mailaddress;
+        public string MailAddress
+        {
+            get
+            {
+                return mailaddress;
+            }
+            set
+            {
+                mailaddress = value;
+            }
         }
     }
 
 
-
-
     static void Main(string[] args)
     {
+        Address address = new();
         Sclad sclad = new Sclad();
         sclad.InitWire(2);
         sclad.InitCorner(4);
 
+        address.MailAddress = "Director@mail.ru";
+
         Wire wire1 = new Wire();
-        wire1.grade = "Сталь3";wire1.price = 86354.91;wire1.diameter = 6; wire1.quantity = 8.3;
+        wire1.grade = "Сталь3";wire1.price = 86354;wire1.diameter = 6; wire1.quantity = 8.3;
         sclad.AddWire(0,wire1);
         Wire wire2 = new Wire();
-        wire2.grade = "Сталь20"; wire2.price = 124508.44;wire2.diameter = 6; wire2.quantity = 6.7;
+        wire2.grade = "Сталь20"; wire2.price = 124508;wire2.diameter = 6; wire2.quantity = 6.7;
         sclad.AddWire(1, wire2);
 
         Corner corner1 = new Corner();
-        corner1.grade = "Сталь3"; corner1.price = 73299.80; corner1.polka = 63; corner1.quantity = 12.0;
+        corner1.grade = "Сталь3"; corner1.price = 73299; corner1.polka = 63; corner1.quantity = 12.0;
         sclad.AddCorner(0, corner1);
         Corner corner2 = new Corner();
-        corner2.grade = "Сталь20"; corner2.price = 89120.65; corner2.polka = 63; corner2.quantity = 9.1;
+        corner2.grade = "Сталь20"; corner2.price = 89120; corner2.polka = 63; corner2.quantity = 9.1;
         sclad.AddCorner(1, corner2);
         Corner corner3 = new Corner();
-        corner3.grade = "Сталь3"; corner3.price = 71313.14; corner3.polka = 75; corner3.quantity = 15.4;
+        corner3.grade = "Сталь3"; corner3.price = 71313; corner3.polka = 75; corner3.quantity = 15.4;
         sclad.AddCorner(2, corner3);
         Corner corner4 = new Corner();
-        corner4.grade = "Сталь20"; corner4.price = 85425.03; corner4.polka = 75; corner4.quantity = 21.5;
+        corner4.grade = "Сталь20"; corner4.price = 85425; corner4.polka = 75; corner4.quantity = 21.5;
         sclad.AddCorner(3, corner4);
 
         sclad.ViewWire();
