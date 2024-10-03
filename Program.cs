@@ -25,6 +25,19 @@ class Programm
         Wire[] wires;
         Corner[] corners;
 
+        public double premium;                                                          // Сбытовая надбавка
+        public double Premium
+        {
+            get
+            {
+                return premium;
+            }
+            set
+            {
+                premium = value;
+            }
+        }
+
         public void InitWire(int x)
         {
             wires = new Wire[x];
@@ -55,7 +68,7 @@ class Programm
             corners[y] = corner;
         }
 
-        public void ViewCorner()                                                            // Вывод данных по проволоке на складе
+        public void ViewCorner()                                                            // Вывод данных по уголку на складе
         {
             foreach (Corner corner in corners)
             {
@@ -69,7 +82,7 @@ class Programm
             Cost();
         }
 
-        private void Cost()                                                                 // Приватный класс - расчет стоимости металла на складе
+        private void Cost()                                                                 // Приватный класс - расчет стоимости металла на складе с учетом сбытовой надбавки
         {
             double cost = 0;
 
@@ -82,36 +95,19 @@ class Programm
             {
                 cost = cost + corner.price * corner.quantity;
             }
+            cost = cost * premium;
 
-            Console.WriteLine("Приватная информация для " + "mailaddress");
-            Console.WriteLine("Стоимость металлопродукции на складе: " + cost + " рублей.");
+            Console.WriteLine("\nПРИВАТНАЯ ИНФОРМАЦИЯ\nСтоимость металлопродукции на складе (с учетом сбытовой надбавки): " + cost + " рублей.");
         }
     }
-    class Address
-    {
-        public string mailaddress;
-        public string MailAddress
-        {
-            get
-            {
-                return mailaddress;
-            }
-            set
-            {
-                mailaddress = value;
-            }
-        }
-    }
-
 
     static void Main(string[] args)
     {
-        Address address = new();
         Sclad sclad = new Sclad();
         sclad.InitWire(2);
         sclad.InitCorner(4);
 
-        address.MailAddress = "Director@mail.ru";
+        sclad.Premium = 1.15;
 
         Wire wire1 = new Wire();
         wire1.grade = "Сталь3";wire1.price = 86354;wire1.diameter = 6; wire1.quantity = 8.3;
@@ -138,8 +134,3 @@ class Programm
         sclad.ViewCost();
    }
 }
-
-
-
-
-
